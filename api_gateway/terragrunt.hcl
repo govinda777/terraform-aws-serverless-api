@@ -1,4 +1,12 @@
 include {
   path = find_in_parent_folders()
-  //cognito_user_pool_arn = dependency.cognito.outputs.user_pool_arn
 }
+
+dependency "lambda_function" {
+  config_path = "../lambda_function"
+}
+
+inputs = {
+  hello_world_lambda_arn = dependency.lambda_function.outputs.hello_world_lambda_arn
+}
+

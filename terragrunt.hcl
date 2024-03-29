@@ -18,3 +18,7 @@ provider "aws" {
 }
 EOF
 }
+
+inputs = {
+  region = "us-west-2" # ou use get_env("AWS_DEFAULT_REGION", "us-west-2") para obter a partir de uma variável de ambiente
+}

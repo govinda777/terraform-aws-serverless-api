@@ -1,3 +1,6 @@
+terraform {
+  backend "s3" {}
+}
 
 resource "aws_api_gateway_rest_api" "MyDemoAPI" {
   name        = "MyDemoAPI"
@@ -23,7 +26,7 @@ resource "aws_api_gateway_integration" "lambda" {
   http_method             = aws_api_gateway_method.hello_get.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.hello_world.invoke_arn
+  uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.hello_world_lambda_arn}/invocations"
 }
 
 resource "aws_api_gateway_deployment" "example" {
