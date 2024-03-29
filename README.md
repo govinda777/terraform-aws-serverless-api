@@ -12,7 +12,6 @@ Para implantar a infraestrutura:
 ```bash
 cd projeto
 terragrunt init
-terragrunt apply-all
 terragrunt run-all apply
 ```
 
