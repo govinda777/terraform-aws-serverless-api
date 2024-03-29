@@ -11,6 +11,7 @@ Este projeto descreve a infraestrutura como código usando Terraform e Terragrun
 Para implantar a infraestrutura:
 ```bash
 cd projeto
+terragrunt init
 terragrunt apply-all
 ```
 
