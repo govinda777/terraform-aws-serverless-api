@@ -38,6 +38,10 @@ resource "aws_api_gateway_deployment" "example" {
   stage_name  = "test"
 }
 
+output "api_gateway_invoke_url" {
+  value = "${aws_api_gateway_deployment.example.invoke_url}/${aws_api_gateway_deployment.example.stage_name}"
+}
+
 
 # provider "aws" {
 #   region = "sua-regiao-aws"

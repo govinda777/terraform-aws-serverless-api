@@ -13,6 +13,7 @@ Para implantar a infraestrutura:
 cd projeto
 terragrunt init
 terragrunt apply-all
+terragrunt run-all apply
 ```
 
 Para destruir a infraestrutura:
