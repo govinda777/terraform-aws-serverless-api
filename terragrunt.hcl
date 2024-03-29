@@ -1,10 +1,15 @@
 remote_state {
   backend = "s3"
-  config = {
-    bucket         = "<BUCKET_NAME>"
-    key            = "${path_relative_to_include()}/terraform.tfstate"
-    region         = "<REGION>"
-    encrypt        = true
-    dynamodb_table = "<DYNAMODB_TABLE_FOR_LOCK>"
-  }
+  # Configurações do backend remoto, como bucket, chave, região, etc.
+}
+
+generate "provider" {
+  path      = "provider.tf"
+  if_exists = "overwrite_terragrunt"
+  contents  = <<EOF
+provider "aws" {
+  region = "sua-regiao-aws"
+  # Qualquer outra configuração necessária para o provider
+}
+EOF
 }

@@ -2,6 +2,14 @@ provider "aws" {
   region = "sua-regiao-aws"
 }
 
+resource "aws_api_gateway_authorizer" "cognito_authorizer" {
+  name                   = "cognito-authorizer"
+  rest_api_id            = aws_api_gateway_rest_api.api_de_campanha.id
+  type                   = "COGNITO_USER_POOLS"
+  identity_source        = "method.request.header.Authorization"
+  provider_arns          = [var.cognito_user_pool_arn]
+}
+
 resource "aws_api_gateway_rest_api" "api_de_campanha" {
   name        = "API-de-Campanha"
   description = "API para gerenciamento de campanhas e usuários"
