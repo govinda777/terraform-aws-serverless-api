@@ -1,14 +1,13 @@
 resource "aws_lambda_function" "hello_world" {
-  function_name = "helloWorldFunction"
-  runtime       = "python3.8"
-  handler       = "hello_world.handler"
+  function_name = "helloWorld"
+  handler       = "index.handler"
+  runtime       = "nodejs12.x"
+  role          = aws_iam_role.iam_for_lambda.arn
 
-  # O código fonte deve ser zipado
-  source_code_hash = filebase64sha256("hello_world.zip")
-  filename         = "${path.module}/hello_world.zip"
-
-  role = aws_iam_role.lambda_exec.arn
+  source_code_hash = filebase64sha256("lambda_function/hello_world.zip")
+  filename         = "lambda_function/hello_world.zip"
 }
+
 
 # Role do IAM para execução da Lambda
 resource "aws_iam_role" "lambda_exec" {
