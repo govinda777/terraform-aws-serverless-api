@@ -1,0 +1,277 @@
+openapi: 3.0.0
+info:
+  title: API de Campanha
+  version: "1.0"
+paths:
+  /users:
+    get:
+      summary: Lista todos os usuários
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Cria um novo usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Usuário criado
+
+  /users/{userId}:
+    get:
+      summary: Busca um usuário pelo ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalhes do usuário
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Atualiza um usuário pelo ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Usuário atualizado
+    delete:
+      summary: Deleta um usuário pelo ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Usuário deletado
+
+  /campaigns:
+    get:
+      summary: Lista todas as campanhas
+      responses:
+        '200':
+          description: Lista de campanhas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campaign'
+    post:
+      summary: Cria uma nova campanha
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campaign'
+      responses:
+        '201':
+          description: Campanha criada
+
+  /campaigns/{campaignId}:
+    get:
+      summary: Busca uma campanha pelo ID
+      parameters:
+        - name: campaignId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalhes da campanha
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+    put:
+      summary: Atualiza uma campanha pelo ID
+      parameters:
+        - name: campaignId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campaign'
+      responses:
+        '200':
+          description: Campanha atualizada
+    delete:
+      summary: Deleta uma campanha pelo ID
+      parameters:
+        - name: campaignId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Campanha deletada
+
+  /campaignCategories:
+    get:
+      summary: Lista todas as categorias de campanha
+      responses:
+        '200':
+          description: Lista de categorias de campanha
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampaignCategory'
+    post:
+      summary: Cria uma nova categoria de campanha
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignCategory'
+      responses:
+        '201':
+          description: Categoria de campanha criada
+
+  /campaignCategories/{categoryId}:
+    get:
+      summary: Busca uma categoria de campanha pelo ID
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalhes da categoria de campanha
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignCategory'
+    put:
+      summary: Atualiza uma categoria de campanha pelo ID
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignCategory'
+      responses:
+        '200':
+          description: Categoria de campanha atualizada
+    delete:
+      summary: Deleta uma categoria de campanha pelo ID
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Categoria de campanha deletada
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+          format: password
+        type:
+          type: string
+          enum: [ngo, activist, artist, doador]
+        img_perfil:
+          type: string
+          format: uri
+        wallet_address:
+          type: string
+      required: [id, name, email, password, type, img_perfil, wallet_address]
+      additionalProperties: false
+    Artist:
+      allOf:
+        - $ref: '#/components/schemas/User'
+        - type: object
+          properties:
+            phone_number:
+              type: string
+            description:
+              type: string
+            address:
+              type: string
+            postal_code:
+              type: string
+          required: [phone_number, description, address, postal_code, type]
+    Campaign:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        category_id:
+          type: integer
+        artist_id:
+          type: integer
+        nft_img:
+          type: string
+          format: uri
+        nft_price:
+          type: number
+        nft_quantity:
+          type: integer
+      required: [title, description, category_id, artist_id, nft_img, nft_price, nft_quantity]
+    CampaignCategory:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required: [id, name]
