@@ -14,3 +14,8 @@ variable "region" {
   description = "The AWS region where the API Gateway will be deployed"
   type        = string
 }
+
+variable "environment" {
+  description = "The deployment environment (dev, staging, prod, etc.)"
+  type        = string
+}

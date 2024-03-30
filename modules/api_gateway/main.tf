@@ -1,9 +1,5 @@
-terraform {
-  backend "s3" {}
-}
-
 resource "aws_api_gateway_rest_api" "MyDemoAPI" {
-  name        = "MyDemoAPI"
+  name        = "MyDemoAPI-${var.environment}"
   description = "Exemplo de API Gateway para a função Lambda"
 }
 
