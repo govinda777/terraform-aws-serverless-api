@@ -1,21 +1,27 @@
-variable "api_name" {
-  description = "O nome da API Gateway"
+variable "api_gateway_name" {
+  description = "The name of the API Gateway"
   type        = string
-  default     = "MyDemoAPI"
+  default     = "value"
 }
 
-variable "api_description" {
-  description = "Descrição da API Gateway"
+variable "api_gateway_description" {
+  description = "The description of the API Gateway"
   type        = string
-  default     = "Exemplo de API Gateway para a função Lambda"
+  default     = "value"
+}
+
+variable "api_gateway_stage_name" {
+  description = "The stage name for the API Gateway deployment"
+  type        = string
+  default     = "value"
 }
 
 variable "region" {
-  description = "The AWS region where the API Gateway will be deployed"
+  description = "The AWS region to deploy resources into"
   type        = string
 }
 
-variable "environment" {
-  description = "The deployment environment (dev, staging, prod, etc.)"
+variable "lambda_function_arn" {
+  description = "ARN of the Lambda function"
   type        = string
 }

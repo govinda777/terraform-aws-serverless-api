@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "MyDemoAPI" {
-  name        = "MyDemoAPI-${var.environment}"
-  description = "Exemplo de API Gateway para a função Lambda"
+  name        = var.api_gateway_name
+  description = var.api_gateway_description
 }
 
 resource "aws_api_gateway_resource" "hello" {
@@ -22,7 +22,7 @@ resource "aws_api_gateway_integration" "lambda" {
   http_method             = aws_api_gateway_method.hello_get.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${aws_lambda_function.hello_world.arn}/invocations"
+  uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${var.lambda_function_arn}/invocations"
 }
 
 resource "aws_api_gateway_deployment" "example" {
